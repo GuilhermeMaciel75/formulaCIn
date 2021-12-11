@@ -1,5 +1,4 @@
 import pygame as pg
-import os 
 
 #Classe responsável pelo moviemnto do player
 class Player():
@@ -31,30 +30,31 @@ class Player():
         if tecla[self.esquerda]:
             
             self.x -= self.velocidade
-            self.carro = pg.image.load(os.path.join('assets','carro_esquerda.png'))
+            self.carro = pg.image.load('assets/carro_esquerda.png')
+            self.rect = self.carro.get_rect(center = (self.x, self.y))
             
 
         if tecla[self.direita]:
 
             self.x += self.velocidade 
-            self.carro = pg.image.load(os.path.join('assets','carro_direita.png'))
+            self.carro = pg.image.load('assets/carro_direita.png')
 
 
         if tecla[self.cima]:
             
             self.y -= self.velocidade
-            self.carro = pg.image.load(os.path.join('assets','carro_cima.png'))
+            self.carro = pg.image.load('assets/carro_cima.png')
 
 
         if tecla[self.baixo]:
 
             self.y += self.velocidade
-            self.carro = pg.image.load(os.path.join('assets','carro_baixo.png'))
+            self.carro = pg.image.load('assets/carro_baixo.png')
 
         return tecla
 
     #Função responsável por escrever na tela 
-    def escrtia(self):
+    def escrita(self):
 
         self.win.blit(self.carro, (self.x, self.y))
         pg.display.update()
