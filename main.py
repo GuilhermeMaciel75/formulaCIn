@@ -12,11 +12,16 @@ def main():
     clock = pg.time.Clock()
 
     #Passando a imagem inical do carro
-    carro = pg.image.load(os.path.join('assets','carro_direita.png'))
+    carro = pg.image.load('assets/carro_direita.png').convert_alpha()
 
     #Criando o objeto player
     player1 = Player(screen, 540, 360, pg.K_a, pg.K_d, pg.K_w, pg.K_s, carro)
-    player2 = Player(screen, 540, 360, pg.K_LEFT, pg.K_RIGHT, pg.K_UP, pg.K_DOWN, carro)
+    player2 = Player(screen, 540, 360, pg.K_LEFT, pg.K_RIGHT, pg.K_UP, pg.K_DOWN, pg.transform.rotate(carro, 180))
+
+    #Criando o grupo de sprites dos carros
+    lista_sprites = pg.sprite.Group()
+    lista_sprites.add(player1)
+    lista_sprites.add(player2)
 
     #Variável responsável por deixar o loop infinito
     jogo_loop = True
@@ -30,15 +35,16 @@ def main():
             if event.type == pg.QUIT:
                 jogo_loop = False
 
+
             #chamando a função de movimento dos players
             player1.controle()
             player2.controle()
-
-            screen.fill((40,40,40))
+            
 
             #escrevendo na tela o movimento
-            player1.escrtia()
-            player2.escrtia()
+            player1.escrita(lista_sprites)
+            screen.fill((50,50,50))
+            player2.escrita(lista_sprites)
 
             pg.display.flip()
             
