@@ -1,5 +1,9 @@
 import pygame as pg
 from random import randint
+from cronometro import contar_tempo
+
+from objects.banana import Banana
+from objects.lightning import Lightning
  
 pg.init()
  
@@ -53,14 +57,11 @@ class Items(pg.sprite.Sprite):
  
     # Functions
     def randomize_position():
-        coord_x = randint(30,970)
-        coord_y = randint(30,470)
+        coord_x = randint(58,602)
+        coord_y = randint(58,728)
         return [coord_x, coord_y]
  
     def item_collision(self):
-        pass
- 
-    def draw(self):
         pass
  
     def destroy(self):
@@ -68,3 +69,33 @@ class Items(pg.sprite.Sprite):
  
     def update(self):
         pass
+
+    def randomizar_item(self):
+        if randint(1,2) == 1:
+            item = "banana"
+        else:
+            item = "raio"
+
+        return item
+
+    #Adiciona os sprites à seus respectivos grupos
+    def adicionar_powerups(self, grupo):
+        if contar_tempo() == 60:
+            for _ in range(3):
+                if self.randomizar_item() == "banana":
+                    grupo.add(Banana())
+                else:
+                    grupo.add(Lightning())
+        elif contar_tempo() == 40:
+            if self.randomizar_item() == "banana":
+                grupo.add(Banana())
+            else:
+                grupo.add(Lightning())
+        elif contar_tempo() == 20:
+            if self.randomizar_item() == "banana":
+                grupo.add(Banana())
+            else:
+                grupo.add(Lightning())
+
+    def desenhar_powerups(self, grupo, tela):
+                grupo.draw(tela)
