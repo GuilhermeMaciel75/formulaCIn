@@ -2,6 +2,8 @@ import pygame as pg
 
 from car import Player
 from mapa import Mapa
+from cronometro import mostrar_tempo
+
 
 def main():
     #Definindo o tamanho da tela
@@ -39,21 +41,24 @@ def main():
                 jogo_loop = False
 
 
-            #chamando a função de movimento dos players
-            player1.controle()
-            player2.controle()
-            
-            #Desenhando o mapa
-            screen.fill("Black")
-            mapa.draw()
+        #chamando a função de movimento dos players
+        player1.controle()
+        player2.controle()
+        pg.display.flip()
+        
+        #Desenhando o mapa
+        screen.fill("Black")
+        mapa.draw()
 
-            #escrevendo na tela o movimento
-            player1.escrita(lista_sprites)
-            player2.escrita(lista_sprites)
+        #Startando o cronometro        
+        if mostrar_tempo(690,30,screen) == 0:
+            pass # aqui vai ser o que vai acontecer quando acabar o jogo
+        
+        #escrevendo na tela o movimento
+        player1.escrita(lista_sprites)
+        player2.escrita(lista_sprites)
 
-            pg.display.flip()
-            
-
+                
 #Chamando a função main
 if __name__ == '__main__':
     pg.init()
