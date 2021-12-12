@@ -1,7 +1,7 @@
-import pygame
+import pygame as pg
 
 # inicializando o PyGame
-pygame.init()
+pg.init(pg.sprite.Sprite)
 
 class Mapa():
     def __init__(self, x, y, window, chave):
@@ -64,30 +64,13 @@ class Mapa():
 
         # dicionario com as informaçoes de cada tile
         self.tiles = {
-            0: {'sprite': pygame.transform.scale(pygame.image.load('assets/mapa/pista.png'), (16, 16)), 'type': 'chao'},
-            1: {'sprite': pygame.transform.scale(pygame.image.load('assets/mapa/quadriculado_vermelho.png'), (16, 16)), 'type': 'parede'},
-            2: {'sprite': pygame.transform.scale(pygame.image.load('assets/mapa/grama.png'), (16, 16))}, 'type': 'parede'}
+            0: {'sprite': pg.transform.scale(pg.image.load('assets/mapa/pista.png'), (18, 18)), 'type': 'chao'},
+            1: {'sprite': pg.transform.scale(pg.image.load('assets/mapa/quadriculado_vermelho.png'), (18, 18)), 'type': 'parede'},
+            2: {'sprite': pg.transform.scale(pg.image.load('assets/mapa/grama.png'), (18, 18))}, 'type': 'parede'}
 
     # Desenha o mapa
     def draw(self):
         # Caminha por todos os números da matriz e desenha a imagem correspondente nas cordenadas correspondentes
         for i in range(len(self.map[0])):
             for j in range(len(self.map)):
-                self.win.blit(self.tiles[self.map[j][i]]['sprite'], (self.x + 16 * i, self.y + 16 * j))
-
-
-# área de testes do mapa
-# setup da tela
-tela = pygame.display.set_mode((1088, 700))
-pygame.display.set_caption("FormulaCin")
-# cria o mapa
-mapa = Mapa(0, 0, tela, 'mapa1')
-
-while True:
-    # permite fechar a janela
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            pygame.quit()
-
-    mapa.draw()
-    pygame.display.update()
+                self.win.blit(self.tiles[self.map[j][i]]['sprite'], (self.x + 18 * i, self.y + 18 * j))

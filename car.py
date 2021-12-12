@@ -23,7 +23,7 @@ class Player(pg.sprite.Sprite):
         #comandos atributos do carro
         self.velocidade = 5
         self.image = carro
-        self.image = pg.transform.scale(self.image, (70,50))
+        self.image = pg.transform.scale(self.image, (40,30))
         self.rect = self.image.get_rect(topleft = (self.x, self.y))
         
         

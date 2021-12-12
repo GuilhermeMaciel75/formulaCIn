@@ -1,22 +1,25 @@
 import pygame as pg
-import os
 
 from car import Player
+from mapa import Mapa
 
 def main():
     #Definindo o tamanho da tela
-    screen = pg.display.set_mode((1080, 720))
+    screen = pg.display.set_mode((900, 774))
     pg.display.set_caption("FormulaCIN")
 
     #Declarando a variável clock
     clock = pg.time.Clock()
 
+    #Criando o Mapa
+    mapa = Mapa(0, 0, screen, 'mapa1')
+
     #Passando a imagem inical do carro
     carro = pg.image.load('assets/carro_direita.png').convert_alpha()
 
     #Criando o objeto player
-    player1 = Player(screen, 540, 360, pg.K_a, pg.K_d, pg.K_w, pg.K_s, carro)
-    player2 = Player(screen, 540, 360, pg.K_LEFT, pg.K_RIGHT, pg.K_UP, pg.K_DOWN, pg.transform.rotate(carro, 180))
+    player1 = Player(screen, 565, 360, pg.K_a, pg.K_d, pg.K_w, pg.K_s, carro)
+    player2 = Player(screen, 80, 360, pg.K_LEFT, pg.K_RIGHT, pg.K_UP, pg.K_DOWN, pg.transform.rotate(carro, 180))
 
     #Criando o grupo de sprites dos carros
     lista_sprites = pg.sprite.Group()
@@ -40,10 +43,12 @@ def main():
             player1.controle()
             player2.controle()
             
+            #Desenhando o mapa
+            screen.fill("Black")
+            mapa.draw()
 
             #escrevendo na tela o movimento
             player1.escrita(lista_sprites)
-            screen.fill((50,50,50))
             player2.escrita(lista_sprites)
 
             pg.display.flip()
