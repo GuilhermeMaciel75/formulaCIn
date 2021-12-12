@@ -1,4 +1,5 @@
 import pygame as pg
+from pygame import transform
 
 from car import Player
 from mapa import Mapa
@@ -17,11 +18,11 @@ def main():
     mapa = Mapa(0, 0, screen, 'mapa1')
 
     #Passando a imagem inical do carro
-    carro = pg.image.load('assets/carro_direita.png').convert_alpha()
+    carro = pg.image.load('assets/carro_esquerda.png').convert_alpha()
 
     #Criando o objeto player
-    player1 = Player(screen, 565, 360, pg.K_a, pg.K_d, pg.K_w, pg.K_s, carro)
-    player2 = Player(screen, 80, 360, pg.K_LEFT, pg.K_RIGHT, pg.K_UP, pg.K_DOWN, pg.transform.rotate(carro, 180))
+    player1 = Player(screen, 600, 360, pg.K_a, pg.K_d, pg.K_w, pg.K_s, carro)
+    player2 = Player(screen, 90, 360, pg.K_LEFT, pg.K_RIGHT, pg.K_UP, pg.K_DOWN, pg.transform.rotate(carro, 180))
 
     #Criando o grupo de sprites dos carros
     lista_sprites = pg.sprite.Group()
@@ -30,6 +31,7 @@ def main():
 
     #Variável responsável por deixar o loop infinito
     jogo_loop = True
+
 
     #Loop que roda até o jogo acabar
     while jogo_loop:
