@@ -1,7 +1,7 @@
 import pygame as pg
 
 # inicializando o PyGame
-pg.init(pg.sprite.Sprite)
+pg.init()
 
 class Mapa():
     def __init__(self, x, y, window, chave):
