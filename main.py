@@ -44,7 +44,7 @@ def main():
     contador_itens = 3
     while jogo_loop:
 
-        contador_itens = Item.adicionar_powerups(grupo_powerup, contador_itens)
+        contador_itens = Item.adicionar_powerups(grupo_powerup,contador_itens)
         contador_trofeus = Trophy.adicionar_trofeu(grupo_trofeu, contador_trofeus)
 
 

@@ -22,7 +22,7 @@ class Item(pg.sprite.Sprite):
     @property
     def y(self):
         return self._position_y
- 
+
     @property
     def w(self):
         return self._width
@@ -53,20 +53,25 @@ class Item(pg.sprite.Sprite):
         self._height = value
  
     # Functions
+    @staticmethod
     def randomize_position():
         coord_x = randint(58,602)
         coord_y = randint(58,728)
         return [coord_x, coord_y]
- 
-    def item_collision(self):
-        pass
- 
-    def destroy(self):
-        pass
- 
-    def update(self):
+
+    @staticmethod
+    def item_collision():
         pass
 
+    @staticmethod
+    def destroy():
+        pass
+
+    @staticmethod
+    def update():
+        pass
+
+    @staticmethod
     def randomizar_item():
         if randint(1,2) == 1:
             item = "banana"
@@ -76,6 +81,7 @@ class Item(pg.sprite.Sprite):
         return item
 
     #Adiciona os sprites à seus respectivos grupos
+    @staticmethod
     def adicionar_powerups(grupo, contador):
         if contar_tempo() == 60 and contador == 3:
             for _ in range(3):
@@ -97,7 +103,7 @@ class Item(pg.sprite.Sprite):
                 grupo.add(Lightning())
             return contador - 1
         else: return contador
-
+    @staticmethod
     def desenhar_powerups(grupo, tela):
         grupo.draw(tela)
 
@@ -132,6 +138,7 @@ class Trophy(Item):
         self.rect = self.image.get_rect(center = (self._position_x, self._position_y))
  
         # Trophy functions
+    @staticmethod
     def adicionar_trofeu(grupo, contador):
         if contar_tempo() == 60 and contador == 3:
             for _ in range(5):
@@ -147,5 +154,6 @@ class Trophy(Item):
             return contador - 1
         else: return contador
 
+    @staticmethod
     def desenhar_trofeu(grupo, tela):
         grupo.draw(tela)
