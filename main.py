@@ -82,7 +82,7 @@ def main():
             pass # aqui vai ser o que vai acontecer quando acabar o jogo
         
         #Mostrando pontuação
-        mostrar_pontuacao(player1, player2, 665, 300, screen)
+        mostrar_pontuacao(player1, player2, 690, 300, screen)
 
         #escrevendo na tela o movimento
         player1.escrita(lista_sprites)
