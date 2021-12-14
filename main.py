@@ -1,7 +1,7 @@
 import pygame as pg
 
 from adicionar_powerups import adicionar_powerups
-from carro import Carro
+from carro import Carro, Carro2
 from mapa import Mapa
 from cronometro import mostrar_tempo
 from objects.item import Item
@@ -11,6 +11,12 @@ from pontuacao import mostrar_pontuacao
 
 
 def main():
+    
+    #Adicionando a música e colocando ela para tocart
+    pg.mixer.music.set_volume(0.2)
+    som = pg.mixer.music.load('assets/efeitos_sonoros/TopGear.mp3')
+    pg.mixer.music.play(-1)
+
     #Definindo o tamanho da tela
     screen = pg.display.set_mode((900, 774))
     pg.display.set_caption("FormulaCIN")
@@ -21,12 +27,9 @@ def main():
     #Criando o Mapa
     mapa = Mapa(0, 0, screen, mapa1)
 
-    #Passando a imagem inical do carro
-    imagem_carro = pg.image.load('assets/carro_esquerda.png').convert_alpha()
-
     #Criando o objeto player
-    player1 = Carro(screen, 600, 360, pg.K_a, pg.K_d, pg.K_w, pg.K_s, imagem_carro, "Player 1")
-    player2 = Carro(screen, 90, 360, pg.K_LEFT, pg.K_RIGHT, pg.K_UP, pg.K_DOWN, pg.transform.rotate(imagem_carro, 180), "Player 2")
+    player1 = Carro(screen, 600, 360, pg.K_a, pg.K_d, pg.K_w, pg.K_s, "Player 1")
+    player2 = Carro2(screen, 90, 360, pg.K_LEFT, pg.K_RIGHT, pg.K_UP, pg.K_DOWN, "Player 2")
 
     #Criando o grupo de sprites dos carros
     lista_sprites = pg.sprite.Group()
@@ -40,7 +43,6 @@ def main():
 
     #Variável responsável por deixar o loop infinito
     jogo_loop = True
-
 
     #Loop que roda até o jogo acabar
     contador_trofeus = 3
