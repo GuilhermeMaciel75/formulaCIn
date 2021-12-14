@@ -1,12 +1,11 @@
 import pygame as pg
-from pygame import transform
-from pygame import sprite
 
 from adicionar_powerups import adicionar_powerups
 from car import Player
 from mapa import Mapa
 from cronometro import mostrar_tempo
 from objects.item import Item
+from objects.matriz_mapa import mapa1
 from objects.trophy import Trophy
 
 
@@ -19,7 +18,7 @@ def main():
     clock = pg.time.Clock()
 
     #Criando o Mapa
-    mapa = Mapa(0, 0, screen, 'mapa1')
+    mapa = Mapa(0, 0, screen, mapa1)
 
     #Passando a imagem inical do carro
     carro = pg.image.load('assets/carro_esquerda.png').convert_alpha()
