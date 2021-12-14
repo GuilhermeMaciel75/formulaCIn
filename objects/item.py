@@ -55,8 +55,8 @@ class Item(pg.sprite.Sprite):
     # Functions
     @staticmethod
     def randomize_position():
-        coord_x = randint(58, 602)
-        coord_y = randint(58, 728)
+        coord_x = randint(3, 33) * 18 - 9
+        coord_y = randint(3, 40) * 18 - 9
         return [coord_x, coord_y]
 
     @staticmethod

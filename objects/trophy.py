@@ -17,7 +17,7 @@ class Trophy(Item):
     @staticmethod
     def adicionar_trofeu(grupo, contador):
         if contar_tempo() == 60 and contador == 3:
-            for _ in range(5):
+            for _ in range(50):
                 grupo.add(Trophy())
             return contador - 1
         elif contar_tempo() == 40 and contador == 2:
