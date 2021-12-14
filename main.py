@@ -1,12 +1,13 @@
 import pygame as pg
 
 from adicionar_powerups import adicionar_powerups
-from car import Player
+from carro import Carro
 from mapa import Mapa
 from cronometro import mostrar_tempo
 from objects.item import Item
 from objects.matriz_mapa import mapa1
 from objects.trophy import Trophy
+from pontuacao import mostrar_pontuacao
 
 
 def main():
@@ -21,11 +22,11 @@ def main():
     mapa = Mapa(0, 0, screen, mapa1)
 
     #Passando a imagem inical do carro
-    carro = pg.image.load('assets/carro_esquerda.png').convert_alpha()
+    imagem_carro = pg.image.load('assets/carro_esquerda.png').convert_alpha()
 
     #Criando o objeto player
-    player1 = Player(screen, 600, 360, pg.K_a, pg.K_d, pg.K_w, pg.K_s, carro)
-    player2 = Player(screen, 90, 360, pg.K_LEFT, pg.K_RIGHT, pg.K_UP, pg.K_DOWN, pg.transform.rotate(carro, 180))
+    player1 = Carro(screen, 600, 360, pg.K_a, pg.K_d, pg.K_w, pg.K_s, imagem_carro, "Player 1")
+    player2 = Carro(screen, 90, 360, pg.K_LEFT, pg.K_RIGHT, pg.K_UP, pg.K_DOWN, pg.transform.rotate(imagem_carro, 180), "Player 2")
 
     #Criando o grupo de sprites dos carros
     lista_sprites = pg.sprite.Group()
@@ -78,6 +79,9 @@ def main():
         if mostrar_tempo(690,30,screen) == 0:
             pass # aqui vai ser o que vai acontecer quando acabar o jogo
         
+        #Mostrando pontuação
+        mostrar_pontuacao(player1, player2, 665, 300, screen)
+
         #escrevendo na tela o movimento
         player1.escrita(lista_sprites)
         player2.escrita(lista_sprites)

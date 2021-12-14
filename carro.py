@@ -1,10 +1,9 @@
 import pygame as pg
-from pygame.display import flip
 
 #Classe responsável pelo moviemnto do player
-class Player(pg.sprite.Sprite):
+class Carro(pg.sprite.Sprite):
 
-    def __init__(self, win, x, y, esquerda, direita, cima, baixo, carro):
+    def __init__(self, win, x, y, esquerda, direita, cima, baixo, carro, nome):
 
         super().__init__()
 
@@ -25,13 +24,22 @@ class Player(pg.sprite.Sprite):
         self.image = pg.transform.scale(self.image, (40,30))
         self.rect = self.image.get_rect(midright = (self.x, self.y))
         self.pontuacao = 0
+        self.nome = nome
 
         self.sprites = []
         self.sprites.append(self.image)
         self.sprites.append(pg.image.load('assets/carro_direita.png').convert_alpha())
         self.sprites.append(pg.image.load('assets/carro_cima.png').convert_alpha())
         self.sprites.append(pg.image.load('assets/carro_baixo.png').convert_alpha())
+
+    #Getters
+    @property
+    def get_pontuacao(self):
+        return self.pontuacao
         
+    @property
+    def get_nome(self):
+        return self.nome
         
     #Função responável por movimentar o carrinho na direção desejada
     def controle(self):
@@ -67,17 +75,17 @@ class Player(pg.sprite.Sprite):
     def colisao_trofeu(self, grupo_trofeu, player):
         if pg.sprite.spritecollide(player, grupo_trofeu, True):
             self.pontuacao += 1
-            print(f"Pontuação: {self.pontuacao}")
+            print(f"{self.get_nome} - Pontuação: {self.pontuacao}")
             return self.pontuacao
 
     def colisao_banana(self, grupo_banana, player):
         if pg.sprite.spritecollide(player, grupo_banana, True):
-            print("Banana")
+            print(f"{self.get_nome} - Banana")
             return True
 
     def colisao_raio(self, grupo_raio, player):
         if pg.sprite.spritecollide(player, grupo_raio, True):
-            print("Raio")
+            print(f"{self.get_nome} - Raio")
             return True
 
     def update_colisao(self, trofeu, banana, raio, player):

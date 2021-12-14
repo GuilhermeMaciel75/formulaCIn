@@ -1,7 +1,5 @@
 import pygame as pg
 
-pg.init()
-
 def contar_tempo():
     tempo_atual = int(pg.time.get_ticks() / 1000)
     tempo_restante = 60 - tempo_atual
