@@ -120,11 +120,13 @@ class Carro(pg.sprite.Sprite):
     def update_colisao(self, trofeu, banana, raio, player):
         
         if self.colisao_banana(banana, player):
+            
             #Definindo a velocidade e o tempo do buffer
             self.velocidade = 1
             self.final = contar_tempo() - 5
 
         if self.colisao_raio(raio, player):
+
             #Definindo a velocidade e o tempo do buffer
             self.velocidade = 5
             self.final = contar_tempo() - 5
