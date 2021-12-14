@@ -1,5 +1,6 @@
 import pygame as pg
 from pygame import transform
+from pygame import sprite
 
 from car import Player
 from mapa import Mapa
@@ -32,7 +33,8 @@ def main():
     lista_sprites.add(player2)
 
     #Criando grupo dos powerups e do troféu
-    grupo_powerup = pg.sprite.Group()
+    grupo_banana = pg.sprite.Group()
+    grupo_raio = pg.sprite.Group()
     grupo_trofeu = pg.sprite.Group()
 
     #Variável responsável por deixar o loop infinito
@@ -44,7 +46,7 @@ def main():
     contador_itens = 3
     while jogo_loop:
 
-        contador_itens = Item.adicionar_powerups(grupo_powerup,contador_itens)
+        contador_itens = Item.adicionar_powerups(grupo_banana, grupo_raio, contador_itens)
         contador_trofeus = Trophy.adicionar_trofeu(grupo_trofeu, contador_trofeus)
 
 
@@ -61,10 +63,15 @@ def main():
         player2.controle()
         pg.display.flip()
         
+        #Verificando colisão
+        player1.update_colisao(grupo_trofeu, grupo_banana, grupo_raio, player1)
+        player2.update_colisao(grupo_trofeu, grupo_banana, grupo_raio, player2)
+
         #Desenhando o mapa e os itens
         screen.fill("Black")
         mapa.draw()
-        Item.desenhar_powerups(grupo_powerup, screen)
+        Item.desenhar_powerups(grupo_banana, screen)
+        Item.desenhar_powerups(grupo_raio, screen)
         Trophy.desenhar_trofeu(grupo_trofeu, screen)
 
         #Startando o cronometro        

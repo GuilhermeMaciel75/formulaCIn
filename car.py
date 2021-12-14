@@ -24,6 +24,7 @@ class Player(pg.sprite.Sprite):
         self.image = carro
         self.image = pg.transform.scale(self.image, (40,30))
         self.rect = self.image.get_rect(midright = (self.x, self.y))
+        self.pontuacao = 0
 
         self.sprites = []
         self.sprites.append(self.image)
@@ -63,4 +64,23 @@ class Player(pg.sprite.Sprite):
     
         pg.display.flip()
 
+    def colisao_trofeu(self, grupo_trofeu, player):
+        if pg.sprite.spritecollide(player, grupo_trofeu, True):
+            self.pontuacao += 1
+            print(f"Pontuação: {self.pontuacao}")
+            return self.pontuacao
 
+    def colisao_banana(self, grupo_banana, player):
+        if pg.sprite.spritecollide(player, grupo_banana, True):
+            print("Banana")
+            return True
+
+    def colisao_raio(self, grupo_raio, player):
+        if pg.sprite.spritecollide(player, grupo_raio, True):
+            print("Raio")
+            return True
+
+    def update_colisao(self, trofeu, banana, raio, player):
+        self.colisao_banana(banana, player)
+        self.colisao_raio(raio, player)
+        self.colisao_trofeu(trofeu, player)

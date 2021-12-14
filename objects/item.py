@@ -82,27 +82,28 @@ class Item(pg.sprite.Sprite):
 
     #Adiciona os sprites à seus respectivos grupos
     @staticmethod
-    def adicionar_powerups(grupo, contador):
+    def adicionar_powerups(grupo_banana, grupo_raio, contador):
         if contar_tempo() == 60 and contador == 3:
             for _ in range(3):
                 if Item.randomizar_item() == "banana":
-                    grupo.add(Banana())
+                    grupo_banana.add(Banana())
                 else:
-                    grupo.add(Lightning())
+                    grupo_raio.add(Lightning())
             return contador - 1
         elif contar_tempo() == 40 and contador == 2:
             if Item.randomizar_item() == "banana":
-                grupo.add(Banana())
+                grupo_banana.add(Banana())
             else:
-                grupo.add(Lightning())
+                grupo_raio.add(Lightning())
             return contador - 1
         elif contar_tempo() == 20 and contador == 1:
             if Item.randomizar_item() == "banana":
-                grupo.add(Banana())
+                grupo_banana.add(Banana())
             else:
-                grupo.add(Lightning())
+                grupo_raio.add(Lightning())
             return contador - 1
         else: return contador
+
     @staticmethod
     def desenhar_powerups(grupo, tela):
         grupo.draw(tela)
@@ -137,7 +138,7 @@ class Trophy(Item):
         self.image = pg.transform.scale(self.image, (20,20))
         self.rect = self.image.get_rect(center = (self._position_x, self._position_y))
  
-        # Trophy functions
+    # Trophy functions
     @staticmethod
     def adicionar_trofeu(grupo, contador):
         if contar_tempo() == 60 and contador == 3:
