@@ -2,11 +2,12 @@ import pygame as pg
 from pygame import transform
 from pygame import sprite
 
+from adicionar_powerups import adicionar_powerups
 from car import Player
 from mapa import Mapa
 from cronometro import mostrar_tempo
 from objects.item import Item
-from objects.item import Trophy
+from objects.trophy import Trophy
 
 
 def main():
@@ -46,7 +47,7 @@ def main():
     contador_itens = 3
     while jogo_loop:
 
-        contador_itens = Item.adicionar_powerups(grupo_banana, grupo_raio, contador_itens)
+        contador_itens = adicionar_powerups(grupo_banana, grupo_raio, contador_itens)
         contador_trofeus = Trophy.adicionar_trofeu(grupo_trofeu, contador_trofeus)
 
 
@@ -70,9 +71,9 @@ def main():
         #Desenhando o mapa e os itens
         screen.fill("Black")
         mapa.draw()
-        Item.desenhar_powerups(grupo_banana, screen)
-        Item.desenhar_powerups(grupo_raio, screen)
-        Trophy.desenhar_trofeu(grupo_trofeu, screen)
+        Item.desenhar_item(grupo_banana, screen)
+        Item.desenhar_item(grupo_raio, screen)
+        Item.desenhar_item(grupo_trofeu, screen)
 
         #Startando o cronometro        
         if mostrar_tempo(690,30,screen) == 0:
