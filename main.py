@@ -3,7 +3,7 @@ import pygame as pg
 from adicionar_powerups import adicionar_powerups
 from carro import Carro, Carro2
 from mapa import Mapa
-from cronometro import mostrar_tempo
+from cronometro import contar_tempo, mostrar_tempo
 from objects.item import Item
 from objects.matriz_mapa import mapa1
 from objects.trophy import Trophy
@@ -11,7 +11,10 @@ from pontuacao import mostrar_pontuacao
 
 
 def main():
+    #Declarando a variável clock
+    clock = pg.time.Clock()
     
+    clock.tick(60)
     #Adicionando a música e colocando ela para tocart
     pg.mixer.music.set_volume(0.2)
     som = pg.mixer.music.load('assets/efeitos_sonoros/TopGear.mp3')
@@ -21,12 +24,14 @@ def main():
     screen = pg.display.set_mode((900, 774))
     pg.display.set_caption("FormulaCIN")
 
-    #Declarando a variável clock
-    clock = pg.time.Clock()
 
     #Criando o Mapa
-    mapa = Mapa(0, 0, screen, mapa1)
-
+    grupo_parede = pg.sprite.Group()
+    
+    mapa = Mapa(0, 0, screen, mapa1, grupo_parede)
+    grupo_parede.draw(screen)   
+    mapa.draw()
+    
     #Criando o objeto player
     player1 = Carro(screen, 600, 360, pg.K_a, pg.K_d, pg.K_w, pg.K_s, "Player 1")
     player2 = Carro2(screen, 90, 360, pg.K_LEFT, pg.K_RIGHT, pg.K_UP, pg.K_DOWN, "Player 2")
@@ -51,7 +56,7 @@ def main():
 
         contador_itens = adicionar_powerups(grupo_banana, grupo_raio, contador_itens)
         contador_trofeus = Trophy.adicionar_trofeu(grupo_trofeu, contador_trofeus)
-
+        
 
         #fps
         clock.tick(60)
@@ -60,26 +65,29 @@ def main():
             if event.type == pg.QUIT:
                 jogo_loop = False
 
-
+        #se o tempo acabar
+        if contar_tempo() == 0:
+            pass # aqui bota o que vai acontecer quando o jogo acabar
+        
         #chamando a função de movimento dos players
         player1.controle()
         player2.controle()
         pg.display.flip()
         
         #Verificando colisão
-        player1.update_colisao(grupo_trofeu, grupo_banana, grupo_raio, player1)
-        player2.update_colisao(grupo_trofeu, grupo_banana, grupo_raio, player2)
-
+        player1.update_colisao(grupo_trofeu, grupo_banana, grupo_raio, grupo_parede, player1)
+        player2.update_colisao(grupo_trofeu, grupo_banana, grupo_raio, grupo_parede, player2)
+                        
         #Desenhando o mapa e os itens
-        screen.fill("Black")
-        mapa.draw()
+        
+        screen.blit(pg.transform.scale(pg.image.load('assets/mapa/fundo.png'),(900,774)), (0,0))
+        
         Item.desenhar_item(grupo_banana, screen)
         Item.desenhar_item(grupo_raio, screen)
         Item.desenhar_item(grupo_trofeu, screen)
 
         #Startando o cronometro        
-        if mostrar_tempo(690,30,screen) == 0:
-            pass # aqui vai ser o que vai acontecer quando acabar o jogo
+        mostrar_tempo(690,30,screen)
         
         #Mostrando pontuação
         mostrar_pontuacao(player1, player2, 690, 300, screen)

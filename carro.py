@@ -22,7 +22,7 @@ class Carro(pg.sprite.Sprite):
         self.baixo = baixo
 
         #comandos atributos do carro
-        self.velocidade = 2
+        self.velocidade = 3
         self.image = pg.image.load('assets/carro_azul.png').convert_alpha()
         self.image = pg.transform.scale(self.image, (40,30))
         self.rect = self.image.get_rect(midright = (self.x, self.y))
@@ -117,7 +117,13 @@ class Carro(pg.sprite.Sprite):
 
             return True
 
-    def update_colisao(self, trofeu, banana, raio, player):
+    def colisao_parede(self, grupo_parede, player):
+
+        if pg.sprite.spritecollide(player, grupo_parede, False):
+
+            print('bateu na parede')
+        
+    def update_colisao(self, trofeu, banana, raio, parede, player):
         
         if self.colisao_banana(banana, player):
             
@@ -137,6 +143,8 @@ class Carro(pg.sprite.Sprite):
         self.tempo_atual = contar_tempo()
         if self.final > self.tempo_atual:
             self.velocidade = 2
+
+        self.colisao_parede(parede, player)
 
 #Classe para o carro2
 class Carro2(Carro):
