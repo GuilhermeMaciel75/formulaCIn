@@ -29,8 +29,10 @@ FormulaCIn é um jogo PvP baseado em uma experiência 2D de coleta de itens na p
 ## Organização do código:
 O código foi estruturado Orientado à objetos e utilizou o recurso de loop para a lógica do jogo acontecer. As classes e funções importantes foram:
 
+- **Carro()**:
+>  Carro é uma classe responsável por armazenar todas propriedades e funções atreladas aos objetos controláveis do jogo. Nela armazenamos imagem, tamanho, posição na tela, velocidade de movimento, sprite, e as funções do carro que influenciam no andamento do jogo, como controle, pontuação, colisões e escrita na tela.
 - **Item()**:
-> Item é uma classe mãe que possui como variáveis a posição (que utiliza um método randomize_position para preenchher), altura, largura e o tipo do item, se é banana, raio ou troféu. Os métodos vinculados a classe são: randomizar_item(), que retorna uma string (banana ou raio), desenhar_item() que desenha na tela o sprite que é passado como parâmetro do método e o randomize_position() que retorna uma lista contendo as coordenadas x e y do item.
+> Item é uma classe mãe que possui como variáveis a posição (que utiliza um método randomize_position para preencher), altura, largura e o tipo do item, se é banana, raio ou troféu. Os métodos vinculados a classe são: randomizar_item(), que retorna uma string (banana ou raio), desenhar_item() que desenha na tela o sprite que é passado como parâmetro do método e o randomize_position() que retorna uma lista contendo as coordenadas x e y do item.
 - **Banana()**:
 > A classe banana é uma subclasse da classe Item e ela contém o asset que representa o item banana, a definição de escala e o ponto de referência do item.
 - **Raio()**:
@@ -41,8 +43,18 @@ O código foi estruturado Orientado à objetos e utilizou o recurso de loop para
 > A classe mapa possui como variáveis a posição x e y do mapa (que é referenciado a partir do canto superior esquerdo), a janela que o mapa será renderizado e uma matriz(lista de listas) que representa qual o tipo de imagem que será renderizado no pixel para gerar o mapa.A classe mapa possui um método draw() que serve para renderizar na tela os pixels definidos pela matriz.
 - **Grama(), Pista() e Quadriculado()**
 > Essas classes são utilizadas para vincular o asset a cada uma delas, e utilizamos na classe mapa para criação.
-- **def Xalala(Xalala)**:
-> Xalala
+- **def main()**:
+> Função principal do jogo. É onde está o loop para que o jogo rode, recebemos os comandos de início, reinício e encerramento do jogo, aplicamos as funções para execução do jogo.
+- **def tela_inicial()**:
+> Em tela_inicial.py. Desenha a tela anterior à execução do jogo, que apresenta o nome do jogo e uma mensagem indicando como começar o jogo para o jogador, além de decorações na temática do game.
+- **def  mostrar_pontuacao()**:
+> Em pontuacao.py. Imprime na parte direita da tela a pontuação de cada jogador de acordo com seus respectivos desempenhos no jogo, além de imprimir imagens dos carros juntos das pontuações para melhor visualização.
+- **def contar_tempo()**:
+> Em cronometro.py. Contador utilizado para a obtenção do tempo de jogo atual e que retorna o tempo restante de corrida.
+- **def mostra_tempo()**:
+> Em cronometro.py. Utiliza a função contar_tempo e imprime na tela o tempo para que a corrida acabe.
+- **def adicionar_powerups()**:
+> Em adicionar_powerups.py. Função responsável por distribuir os itens na tela aleatoriamente no início do jogo. Distribui novamente itens aleatoriamente de acordo com o tempo, utilizando a função contar_tempo e um contador de coleta de itens.
 
 ## Bibliotecas/Módulos usada(o)s:
 - **Pygame**:
