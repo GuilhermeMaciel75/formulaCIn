@@ -30,15 +30,17 @@ FormulaCIn é um jogo PvP baseado em uma experiência 2D de coleta de itens na p
 O código foi estruturado Orientado à objetos e utilizou o recurso de loop para a lógica do jogo acontecer. As classes e funções importantes foram:
 
 - **Item()**:
-> Xalala
+> Item é uma classe mãe que possui como variáveis a posição (que utiliza um método randomize_position para preenchher), altura, largura e o tipo do item, se é banana, raio ou troféu. Os métodos vinculados a classe são: randomizar_item(), que retorna uma string (banana ou raio), desenhar_item() que desenha na tela o sprite que é passado como parâmetro do método e o randomize_position() que retorna uma lista contendo as coordenadas x e y do item.
 - **Banana()**:
-> Xalala
+> A classe banana é uma subclasse da classe Item e ela contém o asset que representa o item banana, a definição de escala e o ponto de referência do item.
 - **Raio()**:
-> Xalala
+> A classe raio é uma subclasse da classe Item e ela contém o asset que representa o item raio, a definição de escala e o ponto de referência do item.
 - **Trofeu()**:
-> Xalala
+> A classe trofeu é uma subclasse da classe Item e ela contém o asset que representa o item troféu, a definição de escala e o ponto de referência do item. Além disso, a classe possui um método adicionar_trofeus() que adiciona no grupo de sprites para spawnar na tela.
 - **Mapa()**:
-> Xalala
+> A classe mapa possui como variáveis a posição x e y do mapa (que é referenciado a partir do canto superior esquerdo), a janela que o mapa será renderizado e uma matriz(lista de listas) que representa qual o tipo de imagem que será renderizado no pixel para gerar o mapa.A classe mapa possui um método draw() que serve para renderizar na tela os pixels definidos pela matriz.
+- **Grama(), Pista() e Quadriculado()**
+> Essas classes são utilizadas para vincular o asset a cada uma delas, e utilizamos na classe mapa para criação.
 - **def Xalala(Xalala)**:
 > Xalala
 
