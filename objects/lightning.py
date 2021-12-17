@@ -4,8 +4,8 @@ from objects.item import Item
 
 
 class Lightning(Item):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, mapa):
+        super().__init__(mapa)
 
         # Lightning properties
         self.image = pg.image.load('assets/raio.png').convert_alpha()
