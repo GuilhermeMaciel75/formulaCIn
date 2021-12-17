@@ -15,16 +15,16 @@ class Trophy(Item):
 
     # Trophy functions
     @staticmethod
-    def adicionar_trofeu(grupo, contador, mapa):
-        if contar_tempo() == 60 and contador == 3:
+    def adicionar_trofeu(grupo, contador, mapa, tempo_inicial):
+        if contar_tempo(tempo_inicial) == 60 and contador == 3:
             for _ in range(7):
                 grupo.add(Trophy(mapa))
             return contador - 1
-        elif contar_tempo() == 40 and contador == 2:
+        elif contar_tempo(tempo_inicial) == 40 and contador == 2:
             for _ in range(4):
                 grupo.add(Trophy(mapa))
             return contador - 1
-        elif contar_tempo() == 20 and contador == 1:
+        elif contar_tempo(tempo_inicial) == 20 and contador == 1:
             for _ in range(4):
                 grupo.add(Trophy(mapa))
             return contador - 1

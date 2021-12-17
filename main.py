@@ -1,4 +1,5 @@
 import pygame as pg
+from pygame.constants import K_SPACE
 
 from adicionar_powerups import adicionar_powerups
 from carro import Carro, Carro2
@@ -8,6 +9,7 @@ from objects.item import Item
 from objects.matriz_mapa import mapa1
 from objects.trophy import Trophy
 from pontuacao import mostrar_pontuacao
+from tela_inicial import tela_inicial
 
 
 def main():
@@ -15,16 +17,31 @@ def main():
     clock = pg.time.Clock()
     
     clock.tick(60)
-    #Adicionando a música e colocando ela para tocart
-    #pg.mixer.music.set_volume(0.2)
-    #som = pg.mixer.music.load('assets/efeitos_sonoros/TopGear.mp3')
-    #pg.mixer.music.play(-1)
+    #Adicionando a música e colocando ela para tocar
+    pg.mixer.music.set_volume(0.2)
+    som = pg.mixer.music.load('assets/efeitos_sonoros/TopGear.mp3')
+    pg.mixer.music.play(-1)
 
     #Definindo o tamanho da tela
     screen = pg.display.set_mode((900, 774))
-    pg.display.set_caption("FormulaCIN")
-
-
+    pg.display.set_caption("FormulaCIN") # titulo do jogo
+    pg.display.set_icon(pg.image.load('assets/logo-cin.png')) # icone do jogo
+    
+    
+    jogo_loop = False
+    #loop que vai dar na tela inicial, esperando o jogador apertar 'espaço' para começar o jogo
+    while jogo_loop is False:
+        tela_inicial(screen, 150, 200)
+        pg.display.flip()
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+        
+        tecla = pg.key.get_pressed()
+        if tecla[K_SPACE]: 
+            jogo_loop = True
+            tempo_inicial = int(pg.time.get_ticks() / 1000)
+    
     #Criando o Mapa
     grupo_parede = pg.sprite.Group()
     
@@ -45,18 +62,15 @@ def main():
     grupo_banana = pg.sprite.Group()
     grupo_raio = pg.sprite.Group()
     grupo_trofeu = pg.sprite.Group()
-
-    #Variável responsável por deixar o loop infinito
-    jogo_loop = True
-
-    #Loop que roda até o jogo acabar
+    
     contador_trofeus = 3
     contador_tempo_itens = 3
     contador_itens = 0
+    
     while jogo_loop:
-
-        contador_tempo_itens = adicionar_powerups(grupo_banana, grupo_raio, contador_tempo_itens, mapa)
-        contador_trofeus = Trophy.adicionar_trofeu(grupo_trofeu, contador_trofeus, mapa)
+        
+        contador_tempo_itens = adicionar_powerups(grupo_banana, grupo_raio, contador_tempo_itens, mapa, tempo_inicial)
+        contador_trofeus = Trophy.adicionar_trofeu(grupo_trofeu, contador_trofeus, mapa, tempo_inicial)
         
 
         #fps
@@ -67,7 +81,7 @@ def main():
                 jogo_loop = False
 
         #se o tempo acabar
-        if contar_tempo() == 0:
+        if contar_tempo(tempo_inicial) == 0:
             pass # aqui bota o que vai acontecer quando o jogo acabar
         
         #chamando a função de movimento dos players
@@ -76,8 +90,8 @@ def main():
         pg.display.flip()
         
         #Verificando colisão
-        player1.update_colisao(grupo_trofeu, grupo_banana, grupo_raio, grupo_parede, player1)
-        player2.update_colisao(grupo_trofeu, grupo_banana, grupo_raio, grupo_parede, player2)
+        player1.update_colisao(grupo_trofeu, grupo_banana, grupo_raio, grupo_parede, player1, tempo_inicial)
+        player2.update_colisao(grupo_trofeu, grupo_banana, grupo_raio, grupo_parede, player2, tempo_inicial)
                         
         #Desenhando o mapa e os itens
         
@@ -88,7 +102,7 @@ def main():
         Item.desenhar_item(grupo_trofeu, screen)
 
         #Startando o cronometro        
-        mostrar_tempo(690,30,screen)
+        mostrar_tempo(690,30,screen, tempo_inicial)
         
         #Mostrando pontuação
         mostrar_pontuacao(player1, player2, 690, 300, screen)
