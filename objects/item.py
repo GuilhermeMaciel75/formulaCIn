@@ -1,18 +1,17 @@
 import pygame as pg
 from random import randint
 
+from mapa import Mapa
+
 pg.init()
 
 
 class Item(pg.sprite.Sprite):
-    def __init__(self, width=None, height=None, type="none") -> None:
+    def __init__(self, mapa) -> None:
         super().__init__()
 
         #  Basic Properties
-        self._position_x, self._position_y = Item.randomize_position()
-        self._width = width
-        self._height = height
-        self._type = type
+        self._position_x, self._position_y = Item.randomize_position(mapa)
 
     #  Getters
     @property
@@ -54,10 +53,15 @@ class Item(pg.sprite.Sprite):
 
     # Functions
     @staticmethod
-    def randomize_position():
-        coord_x = randint(3, 33) * 18 - 9
-        coord_y = randint(3, 40) * 18 - 9
-        return [coord_x, coord_y]
+    def randomize_position(mapa):
+        linha_matriz = randint(3, 33)
+        coluna_matriz = randint(3, 40)
+        if mapa.mapa[coluna_matriz][linha_matriz] == 0:
+            coord_x = linha_matriz * 18 + 9
+            coord_y = coluna_matriz * 18 + 9
+            return [coord_x, coord_y]
+        else:
+            return Item.randomize_position(mapa)
 
     @staticmethod
     def randomizar_item():

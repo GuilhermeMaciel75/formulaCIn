@@ -121,7 +121,7 @@ class Carro(pg.sprite.Sprite):
 
         if pg.sprite.spritecollide(player, grupo_parede, False):
 
-            print('bateu na parede')
+            print('Bateu na parede')
         
     def update_colisao(self, trofeu, banana, raio, parede, player):
         

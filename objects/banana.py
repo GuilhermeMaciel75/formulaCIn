@@ -4,8 +4,8 @@ from objects.item import Item
 
 
 class Banana(Item):
-    def __init__(self):
-        super().__init__()
+    def __init__(self, mapa):
+        super().__init__(mapa)
 
         # Banana properties
         self.image = pg.image.load('assets/banana.png').convert_alpha()

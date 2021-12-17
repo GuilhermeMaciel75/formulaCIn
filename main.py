@@ -16,9 +16,9 @@ def main():
     
     clock.tick(60)
     #Adicionando a música e colocando ela para tocart
-    pg.mixer.music.set_volume(0.2)
-    som = pg.mixer.music.load('assets/efeitos_sonoros/TopGear.mp3')
-    pg.mixer.music.play(-1)
+    #pg.mixer.music.set_volume(0.2)
+    #som = pg.mixer.music.load('assets/efeitos_sonoros/TopGear.mp3')
+    #pg.mixer.music.play(-1)
 
     #Definindo o tamanho da tela
     screen = pg.display.set_mode((900, 774))
@@ -51,11 +51,12 @@ def main():
 
     #Loop que roda até o jogo acabar
     contador_trofeus = 3
-    contador_itens = 3
+    contador_tempo_itens = 3
+    contador_itens = 0
     while jogo_loop:
 
-        contador_itens = adicionar_powerups(grupo_banana, grupo_raio, contador_itens)
-        contador_trofeus = Trophy.adicionar_trofeu(grupo_trofeu, contador_trofeus)
+        contador_tempo_itens = adicionar_powerups(grupo_banana, grupo_raio, contador_tempo_itens, mapa)
+        contador_trofeus = Trophy.adicionar_trofeu(grupo_trofeu, contador_trofeus, mapa)
         
 
         #fps
