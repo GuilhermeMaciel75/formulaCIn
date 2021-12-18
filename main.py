@@ -28,21 +28,8 @@ def main():
     pg.display.set_caption("FormulaCIN") # titulo do jogo
     pg.display.set_icon(pg.image.load('assets/logo-cin.png')) # icone do jogo
     
-    
     jogo_loop = False
     tempo_esgotado = False
-    #loop que vai dar na tela inicial, esperando o jogador apertar 'espaço' para começar o jogo
-    while jogo_loop is False:
-        tela_inicial(screen, 150, 200)
-        pg.display.flip()
-        for event in pg.event.get():
-            if event.type == pg.QUIT:
-                pg.quit()
-        
-        tecla = pg.key.get_pressed()
-        if tecla[K_SPACE]: 
-            jogo_loop = True
-            tempo_inicial = int(pg.time.get_ticks() / 1000)
     
     #Criando o Mapa
     grupo_parede = pg.sprite.Group()
@@ -67,13 +54,25 @@ def main():
     
     contador_trofeus = 3
     contador_tempo_itens = 3
-    contador_itens = 0
     
+    #Loop que vai dar na tela inicial, esperando o jogador apertar 'espaço' para começar o jogo
+    while not jogo_loop:
+        tela_inicial(screen, 150, 200)
+        pg.display.flip()
+        for event in pg.event.get():
+            if event.type == pg.QUIT:
+                pg.quit()
+        
+        tecla = pg.key.get_pressed()
+        if tecla[K_SPACE]: 
+            jogo_loop = True
+            tempo_inicial = int(pg.time.get_ticks() / 1000)
+
+    #Loop que vai rodar o jogo
     while jogo_loop:
         
         contador_tempo_itens = adicionar_powerups(grupo_banana, grupo_raio, contador_tempo_itens, mapa, tempo_inicial)
         contador_trofeus = Trophy.adicionar_trofeu(grupo_trofeu, contador_trofeus, mapa, tempo_inicial)
-        
 
         #fps
         clock.tick(60)
@@ -92,9 +91,25 @@ def main():
             tecla = pg.key.get_pressed()
             if tecla[K_SPACE]:
                 tempo_esgotado = False
-                tempo_inicial = int(pg.time.get_ticks() / 1000)  # reiniciando o cronometro
-                # reiniciar o mapa (tirar os itens)
-                # reiniciar a posição dos carrinhos
+                # Reiniciar o cronômetro
+                tempo_inicial = int(pg.time.get_ticks() / 1000)
+                # Reiniciar o mapa (tirar os itens)
+                pg.sprite.Group.empty(grupo_banana)
+                pg.sprite.Group.empty(grupo_raio)
+                pg.sprite.Group.empty(grupo_trofeu)
+                contador_trofeus = 3
+                contador_tempo_itens = 3
+                # Reiniciar a posição dos carrinhos
+                player1.set_posicao_x = 600
+                player1.set_posicao_y = 360
+                player1.set_direcao = 0
+                player2.set_posicao_x = 90
+                player2.set_posicao_y = 360
+                player2.set_direcao = 1
+                # Reiniciar a contagem da pontuação dos carrinhos
+                player1.set_pontuacao = 0
+                player2.set_pontuacao = 0
+
 
         if not tempo_esgotado:
 

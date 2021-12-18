@@ -26,7 +26,7 @@ class Carro(pg.sprite.Sprite):
         self.image = pg.image.load('assets/carro_azul.png').convert_alpha()
         self.image = pg.transform.scale(self.image, (40,30))
         self.rect = self.image.get_rect(midright = (self.x, self.y))
-        self.pontuacao = 0
+        self._pontuacao = 0
         self.nome = nome
 
         self.sprites = []
@@ -38,12 +38,42 @@ class Carro(pg.sprite.Sprite):
     #Getters
     @property
     def get_pontuacao(self):
-        return self.pontuacao
+        return self._pontuacao
         
     @property
     def get_nome(self):
         return self.nome
-        
+
+    @property
+    def get_posicao_x(self):
+        return self.x
+
+    @property
+    def get_posicao_y(self):
+        return self.y
+
+    @property
+    def get_imagem(self):
+        return self.image
+
+    #Setters
+    @get_pontuacao.setter
+    def set_pontuacao(self, value):
+        self._pontuacao = value
+
+    @get_posicao_x.setter
+    def set_posicao_x(self, value):
+        self.x = value
+
+    @get_posicao_y.setter
+    def set_posicao_y(self, value):
+        self.y = value
+
+    @get_imagem.setter
+    def set_direcao(self, value):
+        self.image = self.sprites[value]
+
+
     #Função responável por movimentar o carrinho na direção desejada
     def controle(self):
 
@@ -81,15 +111,15 @@ class Carro(pg.sprite.Sprite):
 
         if pg.sprite.spritecollide(player, grupo_trofeu, True):
 
-            self.pontuacao += 1
-            print(f"{self.get_nome} - Pontuação: {self.pontuacao}")
+            self._pontuacao += 1
+            print(f"{self.get_nome} - Pontuação: {self._pontuacao}")
             
             #Efeito sonoro da coleta
             som = pg.mixer.Sound('assets/efeitos_sonoros/coleta_item.wav')
             pg.mixer.Sound.set_volume(som, 0.15)
             som.play()
 
-            return self.pontuacao
+            return self._pontuacao
 
     def colisao_banana(self, grupo_banana, player):
 
@@ -119,9 +149,9 @@ class Carro(pg.sprite.Sprite):
 
     def colisao_parede(self, grupo_parede, player):
 
-        if pg.sprite.spritecollide(player, grupo_parede, False):
+        pg.sprite.spritecollide(player, grupo_parede, False)
 
-            print('Bateu na parede')
+            #print('Bateu na parede')
         
     def update_colisao(self, trofeu, banana, raio, parede, player, tempo_inicial):
         
@@ -142,7 +172,7 @@ class Carro(pg.sprite.Sprite):
         #Verifica se já deu o tempo do buffer
         self.tempo_atual = contar_tempo(tempo_inicial)
         if self.final > self.tempo_atual:
-            self.velocidade = 2
+            self.velocidade = 3
 
         self.colisao_parede(parede, player)
 
