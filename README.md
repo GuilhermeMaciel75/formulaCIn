@@ -46,7 +46,9 @@ O código foi estruturado Orientado à objetos e utilizou o recurso de loop para
 - **def main()**:
 > Função principal do jogo. É onde está o loop para que o jogo rode, recebemos os comandos de início, reinício e encerramento do jogo, aplicamos as funções para execução do jogo.
 - **def tela_inicial()**:
-> Em tela_inicial.py. Desenha a tela anterior à execução do jogo, que apresenta o nome do jogo e uma mensagem indicando como começar o jogo para o jogador, além de decorações na temática do game.
+> Em telas.py. Desenha a tela anterior à execução do jogo, que apresenta o nome do jogo e uma mensagem indicando como começar o jogo para o jogador, além de decorações na temática do game.
+- **def tela_final()**:
+> Em telas.py. Desenha a tela final após o cronômetro do jogo zerar, apresenta uma mensagem com o resultado da partida e indica ao jogador como reiniciar o jogo.
 - **def  mostrar_pontuacao()**:
 > Em pontuacao.py. Imprime na parte direita da tela a pontuação de cada jogador de acordo com seus respectivos desempenhos no jogo, além de imprimir imagens dos carros juntos das pontuações para melhor visualização.
 - **def contar_tempo()**:
