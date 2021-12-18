@@ -9,7 +9,8 @@ from objects.item import Item
 from objects.matriz_mapa import mapa1
 from objects.trophy import Trophy
 from pontuacao import mostrar_pontuacao
-from tela_inicial import tela_inicial
+from telas import tela_inicial
+from telas import tela_final
 
 
 def main():
@@ -29,6 +30,7 @@ def main():
     
     
     jogo_loop = False
+    tempo_esgotado = False
     #loop que vai dar na tela inicial, esperando o jogador apertar 'espaço' para começar o jogo
     while jogo_loop is False:
         tela_inicial(screen, 150, 200)
@@ -82,34 +84,46 @@ def main():
 
         #se o tempo acabar
         if contar_tempo(tempo_inicial) == 0:
-            pass # aqui bota o que vai acontecer quando o jogo acabar
-        
-        #chamando a função de movimento dos players
-        player1.controle()
-        player2.controle()
-        pg.display.flip()
-        
-        #Verificando colisão
-        player1.update_colisao(grupo_trofeu, grupo_banana, grupo_raio, grupo_parede, player1, tempo_inicial)
-        player2.update_colisao(grupo_trofeu, grupo_banana, grupo_raio, grupo_parede, player2, tempo_inicial)
-                        
-        #Desenhando o mapa e os itens
-        
-        screen.blit(pg.transform.scale(pg.image.load('assets/mapa/fundo.png'),(900,774)), (0,0))
-        
-        Item.desenhar_item(grupo_banana, screen)
-        Item.desenhar_item(grupo_raio, screen)
-        Item.desenhar_item(grupo_trofeu, screen)
+            tempo_esgotado = True
+            tela_final(screen, player1, player2)
+            pg.display.flip()
 
-        #Startando o cronometro        
-        mostrar_tempo(690,30,screen, tempo_inicial)
-        
-        #Mostrando pontuação
-        mostrar_pontuacao(player1, player2, 690, 300, screen)
+            # se apertar espaço
+            tecla = pg.key.get_pressed()
+            if tecla[K_SPACE]:
+                tempo_esgotado = False
+                tempo_inicial = int(pg.time.get_ticks() / 1000)  # reiniciando o cronometro
+                # reiniciar o mapa (tirar os itens)
+                # reiniciar a posição dos carrinhos
 
-        #escrevendo na tela o movimento
-        player1.escrita(lista_sprites)
-        player2.escrita(lista_sprites)
+        if not tempo_esgotado:
+
+            #chamando a função de movimento dos players
+            player1.controle()
+            player2.controle()
+            pg.display.flip()
+        
+            #Verificando colisão
+            player1.update_colisao(grupo_trofeu, grupo_banana, grupo_raio, grupo_parede, player1, tempo_inicial)
+            player2.update_colisao(grupo_trofeu, grupo_banana, grupo_raio, grupo_parede, player2, tempo_inicial)
+
+            #Desenhando o mapa e os itens
+
+            screen.blit(pg.transform.scale(pg.image.load('assets/mapa/fundo.png'),(900,774)), (0,0))
+
+            Item.desenhar_item(grupo_banana, screen)
+            Item.desenhar_item(grupo_raio, screen)
+            Item.desenhar_item(grupo_trofeu, screen)
+
+            #Startando o cronometro
+            mostrar_tempo(690,30,screen, tempo_inicial)
+        
+            #Mostrando pontuação
+            mostrar_pontuacao(player1, player2, 690, 300, screen)
+
+            #escrevendo na tela o movimento
+            player1.escrita(lista_sprites)
+            player2.escrita(lista_sprites)
 
                 
 #Chamando a função main

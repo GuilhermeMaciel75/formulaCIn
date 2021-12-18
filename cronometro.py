@@ -4,6 +4,9 @@ def contar_tempo(tempo_inicial):
     tempo_atual = int(pg.time.get_ticks() / 1000)
     tempo_restante = 60 - tempo_atual + tempo_inicial
 
+    if tempo_restante < 0:
+        tempo_restante = 0
+
     return tempo_restante
 
 def mostrar_tempo(x, y, screen, tempo_inicial):
