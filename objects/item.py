@@ -36,12 +36,51 @@ class Item(pg.sprite.Sprite):
     def randomize_position(mapa):
         linha_matriz = randint(3, 33)
         coluna_matriz = randint(3, 40)
+
+        # O elemento da matriz sorteado é igual a 0:
         if mapa.mapa[coluna_matriz][linha_matriz] == 0:
-            coord_x = linha_matriz * 18 + 9
-            coord_y = coluna_matriz * 18 + 9
+            if mapa.mapa[coluna_matriz -1][linha_matriz] == 0 and mapa.mapa[coluna_matriz][linha_matriz - 1] == 0:
+                # Se o elemento sorteado = 0, o  elemento da linha anterior e mesma coluna = 0,
+                # o elemento da mesma linha e coluna anterior = 0 e o elemento da linha anterior e coluna anterior = 0
+                # o item surge entre esses 4 elementos
+                if mapa.mapa[coluna_matriz - 1][linha_matriz - 1] == 0:
+                    coord_x = linha_matriz * 18
+                    coord_y = coluna_matriz * 18
+                # Se o elemento da linha anterior e coluna anterior != 0
+                # o item surge entre o elemento sorteado e os seus sucessores
+                else:
+                    coord_x = linha_matriz * 18 + 18
+                    coord_y = coluna_matriz * 18 + 18
+
+            elif mapa.mapa[coluna_matriz + 1][linha_matriz] == 0 and mapa.mapa[coluna_matriz][linha_matriz + 1] == 0:
+                #Se o elemento sorteado = 0, o elemento da linha seguinte e mesma coluna = 0,
+                # o elemento da mesma linha e coluna seguinte = 0 e o elemento da linha seguinte e coluna seguinte = 0
+                # o item surge entre esses 4 elementos
+                if mapa.mapa[coluna_matriz + 1][linha_matriz + 1] == 0:
+                    coord_x = linha_matriz * 18 + 18
+                    coord_y = coluna_matriz * 18 + 18
+                # Se o elemento da linha seguinte e coluna seguinte != 0
+                # o item surge entre o elemento sorteado e seus antecessores
+                else:
+                    coord_x = linha_matriz * 18
+                    coord_y = coluna_matriz * 18
+
+            # Se algum dos elementos sucessores != 0 e algum dos elementos anteriores != 0
+            # a coordenada x e a coordenada y são definidas separadamente de acordo com seus elementos adjacentes
+            else:
+                if mapa.mapa[coluna_matriz][linha_matriz - 1] == 0:
+                    coord_x = linha_matriz * 18
+                else:
+                    coord_x = linha_matriz * 18 + 18
+                if mapa.mapa[coluna_matriz - 1][linha_matriz] == 0:
+                    coord_y = coluna_matriz * 18
+                else:
+                    coord_y = coluna_matriz * 18 + 18
+
             return [coord_x, coord_y]
-        else:
-            return Item.randomize_position(mapa)
+
+        # Se o elemento sorteado for != 0, a função roda denovo até o elemento sorteado = 0
+        else: return Item.randomize_position(mapa)
 
     @staticmethod
     def randomizar_item():
