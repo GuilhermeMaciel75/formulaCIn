@@ -1,4 +1,7 @@
+from typing import Tuple
 import pygame as pg
+from pygame import Surface, surface
+from pygame import sprite
 from cronometro import contar_tempo
 
 #Classe responsável pelo moviemnto do player
@@ -24,8 +27,10 @@ class Carro(pg.sprite.Sprite):
         #comandos atributos do carro
         self.velocidade = 3
         self.image = pg.image.load('assets/carro_azul.png').convert_alpha()
-        self.image = pg.transform.scale(self.image, (40,30))
-        self.rect = self.image.get_rect(midright = (self.x, self.y))
+        self.image = pg.transform.scale(self.image, (31,31))
+        self.rect = self.image.get_rect()
+        self.rect.x = x
+        self.rect.y = y
         self._pontuacao = 0
         self.nome = nome
 
@@ -46,16 +51,19 @@ class Carro(pg.sprite.Sprite):
 
     @property
     def get_posicao_x(self):
-        return self.x
+        return self.rect.x
 
     @property
     def get_posicao_y(self):
-        return self.y
+        return self.rect.y
 
     @property
     def get_imagem(self):
         return self.image
 
+    @property
+    def get_velocidade(self):
+        return self.velocidade
     #Setters
     @get_pontuacao.setter
     def set_pontuacao(self, value):
@@ -63,46 +71,76 @@ class Carro(pg.sprite.Sprite):
 
     @get_posicao_x.setter
     def set_posicao_x(self, value):
-        self.x = value
+        self.rect.x = value
 
     @get_posicao_y.setter
     def set_posicao_y(self, value):
-        self.y = value
+        self.rect.y = value
 
     @get_imagem.setter
     def set_direcao(self, value):
         self.image = self.sprites[value]
 
+    @get_velocidade.setter
+    def set_velocidade(self, value):
+        self.velocidade = value
 
     #Função responável por movimentar o carrinho na direção desejada
-    def controle(self):
+    def controle(self, grupo_parede):
 
         tecla = pg.key.get_pressed()
 
         if tecla[self.esquerda]: 
 
-            self.image = pg.transform.scale(self.sprites[0], (40,30))
-            self.x -= self.velocidade
+            self.rect.x -= self.velocidade
+            lista_colidiu = pg.sprite.spritecollide(self, grupo_parede, False)
+            
+            for colidiu in lista_colidiu:
+                self.rect.left = colidiu.rect.right
+            
+            self.image = pg.transform.scale(self.sprites[0], (31,31))
+
+            
 
         if tecla[self.direita]:
 
-            self.image = pg.transform.scale(self.sprites[1], (40,30))
-            self.x += self.velocidade 
+            self.rect.x += self.velocidade 
+            lista_colidiu = pg.sprite.spritecollide(self, grupo_parede, False)
+
+            for colidiu in lista_colidiu:
+                self.rect.right = colidiu.rect.left
+            
+            self.image = pg.transform.scale(self.sprites[1], (31,31))
+            
 
         if tecla[self.cima]:     
             
-            self.image = pg.transform.scale(self.sprites[3], (30,40))
-            self.y -= self.velocidade
+            
+            self.rect.y -= self.velocidade
+            lista_colidiu = pg.sprite.spritecollide(self, grupo_parede, False)
+            
+            for colidiu in lista_colidiu:
+                self.rect.top = colidiu.rect.bottom
+            
+            self.image = pg.transform.scale(self.sprites[3], (31,31))
+            
 
         if tecla[self.baixo]:
 
-            self.image = pg.transform.scale(self.sprites[2], (30,40))
-            self.y += self.velocidade
+            self.rect.y += self.velocidade
+            lista_colidiu = pg.sprite.spritecollide(self, grupo_parede, False)
+            
+            for colidiu in lista_colidiu:
+                
+                self.rect.bottom = colidiu.rect.top
+
+            self.image = pg.transform.scale(self.sprites[2], (31,31))
+            
 
     #Função responsável por escrever na tela 
     def escrita(self, sprites):
 
-        self.rect = self.image.get_rect(midright = (self.x, self.y))
+        
         sprites.draw(self.win)
     
         pg.display.flip()
@@ -183,7 +221,7 @@ class Carro2(Carro):
         
         #Pegando a imagem
         self.image = pg.image.load('assets/carro_vermelho.png').convert_alpha()
-        self.image = pg.transform.scale(self.image, (40,30))
+        self.image = pg.transform.scale(self.image, (31,31))
         
         #Transformando para sprite
         self.sprites = []

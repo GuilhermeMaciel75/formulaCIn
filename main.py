@@ -9,15 +9,17 @@ from objects.item import Item
 from objects.matriz_mapa import mapa1
 from objects.trophy import Trophy
 from pontuacao import mostrar_pontuacao
+from reiniciar_atributos import SPWAN_PLAYER1_X, SPWAN_PLAYER2_X, SPWAN_PLAYER_Y
 from telas import tela_inicial
 from telas import tela_final
-
+import reiniciar_atributos 
 
 def main():
     #Declarando a variável clock
     clock = pg.time.Clock()
     
     clock.tick(60)
+    
     #Adicionando a música e colocando ela para tocar
     pg.mixer.music.set_volume(0.2)
     som = pg.mixer.music.load('assets/efeitos_sonoros/TopGear.mp3')
@@ -37,10 +39,11 @@ def main():
     mapa = Mapa(0, 0, screen, mapa1, grupo_parede)
     grupo_parede.draw(screen)   
     mapa.draw()
+
     
     #Criando o objeto player
-    player1 = Carro(screen, 600, 360, pg.K_a, pg.K_d, pg.K_w, pg.K_s, "Player 1")
-    player2 = Carro2(screen, 90, 360, pg.K_LEFT, pg.K_RIGHT, pg.K_UP, pg.K_DOWN, "Player 2")
+    player1 = Carro(screen, SPWAN_PLAYER1_X, SPWAN_PLAYER_Y, pg.K_a, pg.K_d, pg.K_w, pg.K_s, "Player 1")
+    player2 = Carro2(screen, SPWAN_PLAYER2_X, SPWAN_PLAYER_Y, pg.K_LEFT, pg.K_RIGHT, pg.K_UP, pg.K_DOWN, "Player 2")
 
     #Criando o grupo de sprites dos carros
     lista_sprites = pg.sprite.Group()
@@ -57,6 +60,7 @@ def main():
     
     #Loop que vai dar na tela inicial, esperando o jogador apertar 'espaço' para começar o jogo
     while not jogo_loop:
+
         tela_inicial(screen, 150, 200)
         pg.display.flip()
         for event in pg.event.get():
@@ -89,33 +93,24 @@ def main():
 
             # se apertar espaço
             tecla = pg.key.get_pressed()
-            if tecla[K_SPACE]:
+
+            if tecla[K_SPACE]: 
                 tempo_esgotado = False
+
                 # Reiniciar o cronômetro
                 tempo_inicial = int(pg.time.get_ticks() / 1000)
+
                 # Reiniciar o mapa (tirar os itens)
-                pg.sprite.Group.empty(grupo_banana)
-                pg.sprite.Group.empty(grupo_raio)
-                pg.sprite.Group.empty(grupo_trofeu)
                 contador_trofeus = 3
                 contador_tempo_itens = 3
-                # Reiniciar a posição dos carrinhos
-                player1.set_posicao_x = 600
-                player1.set_posicao_y = 360
-                player1.set_direcao = 0
-                player2.set_posicao_x = 90
-                player2.set_posicao_y = 360
-                player2.set_direcao = 1
-                # Reiniciar a contagem da pontuação dos carrinhos
-                player1.set_pontuacao = 0
-                player2.set_pontuacao = 0
 
-
+                reiniciar_atributos.reiniciar(player1, player2, grupo_raio, grupo_trofeu, grupo_banana)
+                
         if not tempo_esgotado:
 
             #chamando a função de movimento dos players
-            player1.controle()
-            player2.controle()
+            player1.controle(grupo_parede)
+            player2.controle(grupo_parede)
             pg.display.flip()
         
             #Verificando colisão
