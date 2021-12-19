@@ -32,7 +32,7 @@ O código foi estruturado Orientado à objetos e utilizou o recurso de loop para
 - **Carro()**:
 >  Carro é uma classe responsável por armazenar todas propriedades e funções atreladas aos objetos controláveis do jogo. Nela armazenamos imagem, tamanho, posição na tela, velocidade de movimento, sprite, e as funções do carro que influenciam no andamento do jogo, como controle, pontuação, colisões e escrita na tela.
 - **Item()**:
-> Item é uma classe mãe que possui como variáveis a posição (que utiliza um método randomize_position para preencher), altura, largura e o tipo do item, se é banana, raio ou troféu. Os métodos vinculados a classe são: randomizar_item(), que retorna uma string (banana ou raio), desenhar_item() que desenha na tela o sprite que é passado como parâmetro do método e o randomize_position() que retorna uma lista contendo as coordenadas x e y do item.
+> Item é uma classe mãe que possui como variáveis a posição (que utiliza um método randomizar_posicao para preencher), altura, largura e o tipo do item, se é banana, raio ou troféu. Os métodos vinculados a classe são: randomizar_item(), que retorna uma string (banana ou raio), desenhar_item() que desenha na tela o sprite que é passado como parâmetro do método e o randomizar_posicao() que retorna uma lista contendo as coordenadas x e y do item.
 - **Banana()**:
 > A classe banana é uma subclasse da classe Item e ela contém o asset que representa o item banana, a definição de escala e o ponto de referência do item.
 - **Raio()**:

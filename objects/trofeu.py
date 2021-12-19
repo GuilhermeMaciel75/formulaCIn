@@ -4,29 +4,29 @@ from cronometro import contar_tempo
 from objects.item import Item
 
 
-class Trophy(Item):
+class Trofeu(Item):
     def __init__(self, mapa):
         super().__init__(mapa)
 
-        # Trophy properties
+        # Propriedades do Trofeu
         self.image = pg.image.load('assets/trofeu.png').convert_alpha()
         self.image = pg.transform.scale(self.image, (20, 20))
-        self.rect = self.image.get_rect(center=(self._position_x, self._position_y))
+        self.rect = self.image.get_rect(center=(self._posicao_x, self._posicao_y))
 
-    # Trophy functions
+    # Funções
     @staticmethod
     def adicionar_trofeu(grupo, contador, mapa, tempo_inicial):
         if contar_tempo(tempo_inicial) == 60 and contador == 3:
             for _ in range(7):
-                grupo.add(Trophy(mapa))
+                grupo.add(Trofeu(mapa))
             return contador - 1
         elif contar_tempo(tempo_inicial) == 40 and contador == 2:
             for _ in range(4):
-                grupo.add(Trophy(mapa))
+                grupo.add(Trofeu(mapa))
             return contador - 1
         elif contar_tempo(tempo_inicial) == 20 and contador == 1:
             for _ in range(4):
-                grupo.add(Trophy(mapa))
+                grupo.add(Trofeu(mapa))
             return contador - 1
         else:
             return contador

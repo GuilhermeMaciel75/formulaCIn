@@ -1,5 +1,6 @@
 import pygame as pg
 
+# Contar o tempo restante de jogo
 def contar_tempo(tempo_inicial):
     tempo_atual = int(pg.time.get_ticks() / 1000)
     tempo_restante = 60 - tempo_atual + tempo_inicial
@@ -9,9 +10,9 @@ def contar_tempo(tempo_inicial):
 
     return tempo_restante
 
+# Desenhar o tempo restante ao lado do mapa
 def mostrar_tempo(x, y, screen, tempo_inicial):
     fonte = pg.font.Font('assets/fontes/PressStart2P-Regular.ttf', 20)
-
     tempo = fonte.render(f'Tempo:{contar_tempo(tempo_inicial)}', True, (255,255,255))    
     
     screen.blit(tempo, (x,y))

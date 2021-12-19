@@ -7,9 +7,9 @@ from mapa import Mapa
 from cronometro import contar_tempo, mostrar_tempo
 from objects.item import Item
 from objects.matriz_mapa import mapa1
-from objects.trophy import Trophy
+from objects.trofeu import Trofeu
 from pontuacao import mostrar_pontuacao
-from reiniciar_atributos import SPWAN_PLAYER1_X, SPWAN_PLAYER2_X, SPWAN_PLAYER_Y
+from reiniciar_atributos import SPAWN_PLAYER1_X, SPAWN_PLAYER2_X, SPAWN_PLAYER_Y
 from telas import tela_inicial
 from telas import tela_final
 import reiniciar_atributos 
@@ -21,9 +21,9 @@ def main():
     clock.tick(60)
     
     #Adicionando a música e colocando ela para tocar
-    pg.mixer.music.set_volume(0.2)
-    som = pg.mixer.music.load('assets/efeitos_sonoros/TopGear.mp3')
-    pg.mixer.music.play(-1)
+    #pg.mixer.music.set_volume(0.2)
+    #som = pg.mixer.music.load('assets/efeitos_sonoros/TopGear.mp3')
+    #pg.mixer.music.play(-1)
 
     #Definindo o tamanho da tela
     screen = pg.display.set_mode((900, 774))
@@ -42,8 +42,8 @@ def main():
 
     
     #Criando o objeto player
-    player1 = Carro(screen, SPWAN_PLAYER1_X, SPWAN_PLAYER_Y, pg.K_a, pg.K_d, pg.K_w, pg.K_s, "Player 1")
-    player2 = Carro2(screen, SPWAN_PLAYER2_X, SPWAN_PLAYER_Y, pg.K_LEFT, pg.K_RIGHT, pg.K_UP, pg.K_DOWN, "Player 2")
+    player1 = Carro(screen, SPAWN_PLAYER1_X, SPAWN_PLAYER_Y, pg.K_a, pg.K_d, pg.K_w, pg.K_s, "Player 1")
+    player2 = Carro2(screen, SPAWN_PLAYER2_X, SPAWN_PLAYER_Y, pg.K_LEFT, pg.K_RIGHT, pg.K_UP, pg.K_DOWN, "Player 2")
 
     #Criando o grupo de sprites dos carros
     lista_sprites = pg.sprite.Group()
@@ -76,7 +76,7 @@ def main():
     while jogo_loop:
         
         contador_tempo_itens = adicionar_powerups(grupo_banana, grupo_raio, contador_tempo_itens, mapa, tempo_inicial)
-        contador_trofeus = Trophy.adicionar_trofeu(grupo_trofeu, contador_trofeus, mapa, tempo_inicial)
+        contador_trofeus = Trofeu.adicionar_trofeu(grupo_trofeu, contador_trofeus, mapa, tempo_inicial)
 
         #fps
         clock.tick(60)

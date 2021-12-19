@@ -1,30 +1,27 @@
-from typing import Tuple
 import pygame as pg
-from pygame import Surface, surface
-from pygame import sprite
 from cronometro import contar_tempo
 
-#Classe responsável pelo moviemnto do player
+# Classe responsável pelo moviemnto do player
 class Carro(pg.sprite.Sprite):
 
     def __init__(self, win, x, y, esquerda, direita, cima, baixo, nome):
 
         super().__init__()
 
-        #Comandos de dimensão da tela e de colocação do player
+        # Comandos de dimensão da tela e de colocação do player
         self.win = win
         self.x = x
         self.y = y
         self.tempo_atual = 0
         self.final = 0
 
-        #Comandos de movimentação
+        # Comandos de movimentação
         self.esquerda = esquerda
         self.direita = direita
         self.cima = cima
         self.baixo = baixo
 
-        #comandos atributos do carro
+        # Comandos atributos do carro
         self.velocidade = 3
         self.image = pg.image.load('assets/carro_azul.png').convert_alpha()
         self.image = pg.transform.scale(self.image, (31,31))
@@ -40,7 +37,7 @@ class Carro(pg.sprite.Sprite):
         self.sprites.append(pg.transform.rotate(self.image,90))
         self.sprites.append(pg.transform.rotate(self.image,270))
 
-    #Getters
+    # Getters
     @property
     def get_pontuacao(self):
         return self._pontuacao
@@ -64,7 +61,8 @@ class Carro(pg.sprite.Sprite):
     @property
     def get_velocidade(self):
         return self.velocidade
-    #Setters
+
+    # Setters
     @get_pontuacao.setter
     def set_pontuacao(self, value):
         self._pontuacao = value
@@ -85,7 +83,7 @@ class Carro(pg.sprite.Sprite):
     def set_velocidade(self, value):
         self.velocidade = value
 
-    #Função responável por movimentar o carrinho na direção desejada
+    # Função responável por movimentar o carrinho na direção desejada
     def controle(self, grupo_parede):
 
         tecla = pg.key.get_pressed()
@@ -94,13 +92,12 @@ class Carro(pg.sprite.Sprite):
 
             self.rect.x -= self.velocidade
             lista_colidiu = pg.sprite.spritecollide(self, grupo_parede, False)
-            
+
             for colidiu in lista_colidiu:
                 self.rect.left = colidiu.rect.right
-            
+
             self.image = pg.transform.scale(self.sprites[0], (31,31))
 
-            
 
         if tecla[self.direita]:
 
@@ -109,44 +106,41 @@ class Carro(pg.sprite.Sprite):
 
             for colidiu in lista_colidiu:
                 self.rect.right = colidiu.rect.left
-            
+
             self.image = pg.transform.scale(self.sprites[1], (31,31))
-            
+
 
         if tecla[self.cima]:     
-            
-            
+
             self.rect.y -= self.velocidade
             lista_colidiu = pg.sprite.spritecollide(self, grupo_parede, False)
-            
+
             for colidiu in lista_colidiu:
                 self.rect.top = colidiu.rect.bottom
-            
+
             self.image = pg.transform.scale(self.sprites[3], (31,31))
-            
+
 
         if tecla[self.baixo]:
 
             self.rect.y += self.velocidade
             lista_colidiu = pg.sprite.spritecollide(self, grupo_parede, False)
-            
+
             for colidiu in lista_colidiu:
-                
+
                 self.rect.bottom = colidiu.rect.top
 
             self.image = pg.transform.scale(self.sprites[2], (31,31))
-            
 
-    #Função responsável por escrever na tela 
+
+    # Função responsável por escrever na tela 
     def escrita(self, sprites):
-
-        
         sprites.draw(self.win)
-    
+
         pg.display.flip()
 
+    # Função responsável pela coleta de troféus e contagem da pontuação
     def colisao_trofeu(self, grupo_trofeu, player):
-
         if pg.sprite.spritecollide(player, grupo_trofeu, True):
 
             self._pontuacao += 1
@@ -159,8 +153,8 @@ class Carro(pg.sprite.Sprite):
 
             return self._pontuacao
 
+    # Função responsável pela coleta da banana
     def colisao_banana(self, grupo_banana, player):
-
         if pg.sprite.spritecollide(player, grupo_banana, True):
 
             print(f"{self.get_nome} - Banana")
@@ -172,8 +166,8 @@ class Carro(pg.sprite.Sprite):
 
             return True
 
+    # Função responsável pela coleta do raio
     def colisao_raio(self, grupo_raio, player):
-
         if pg.sprite.spritecollide(player, grupo_raio, True): 
 
             print(f"{self.get_nome} - Raio")
@@ -185,16 +179,15 @@ class Carro(pg.sprite.Sprite):
 
             return True
 
+    # Função responsável pela colisão do player com a parede
     def colisao_parede(self, grupo_parede, player):
-
         pg.sprite.spritecollide(player, grupo_parede, False)
-
-            #print('Bateu na parede')
-        
+    
+    # Função responsável por chamar todas as funções de colisão as mesmo tempo
+    # e responsável por aplicar os efeitos da coletas dos itens
     def update_colisao(self, trofeu, banana, raio, parede, player, tempo_inicial):
-        
         if self.colisao_banana(banana, player):
-            
+
             #Definindo a velocidade e o tempo do buffer
             self.velocidade = 1
             self.final = contar_tempo(tempo_inicial) - 5

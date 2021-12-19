@@ -1,39 +1,36 @@
 import pygame as pg
 from random import randint
 
-from mapa import Mapa
-
 pg.init()
-
 
 class Item(pg.sprite.Sprite):
     def __init__(self, mapa) -> None:
         super().__init__()
 
-        #  Basic Properties
-        self._position_x, self._position_y = Item.randomize_position(mapa)
+        # Propriedades básicas
+        self._posicao_x, self._posicao_y = Item.randomizar_posicao(mapa)
 
-    #  Getters
+    # Getters
     @property
     def x(self):
-        return self._position_x
+        return self._posicao_x
 
     @property
     def y(self):
-        return self._position_y
+        return self._posicao_y
 
-    #  Setters
+    # Setters
     @x.setter
     def x(self, value):
-        self._position_x = value
+        self._posicao_x = value
 
     @y.setter
     def y(self, value):
-        self._position_y = value
+        self._posicao_y = value
 
-    # Functions
+    # Funções
     @staticmethod
-    def randomize_position(mapa):
+    def randomizar_posicao(mapa):
         linha_matriz = randint(3, 33)
         coluna_matriz = randint(3, 40)
 
@@ -65,10 +62,10 @@ class Item(pg.sprite.Sprite):
                 coord_y = coluna_matriz * 18 + 18
                 return [coord_x, coord_y]
 
-            else: return Item.randomize_position(mapa)
+            else: return Item.randomizar_posicao(mapa)
 
         # Se o elemento sorteado for != 0, a função roda denovo até o elemento sorteado = 0
-        else: return Item.randomize_position(mapa)
+        else: return Item.randomizar_posicao(mapa)
 
     @staticmethod
     def randomizar_item():
