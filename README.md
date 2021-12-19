@@ -81,4 +81,4 @@ O código foi estruturado Orientado à objetos e utilizou o recurso de loop para
 - **Xalala**:
 > Xalala
 #
-###### *Projeto referente a matéria de Introdução a programação/CIN-UFPE no periodo de 20201.1. Começamos em 07/12/2021*
+###### *Projeto referente a matéria de Introdução a programação/CIN-UFPE no periodo de 2021.1. Começamos em 07/12/2021*
