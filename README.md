@@ -57,6 +57,8 @@ O código foi estruturado Orientado à objetos e utilizou o recurso de loop para
 > Em cronometro.py. Utiliza a função contar_tempo e imprime na tela o tempo para que a corrida acabe.
 - **def adicionar_powerups()**:
 > Em adicionar_powerups.py. Função responsável por distribuir os itens na tela aleatoriamente no início do jogo. Distribui novamente itens aleatoriamente de acordo com o tempo, utilizando a função contar_tempo e um contador de coleta de itens.
+- **def  reiniciar()**:
+> Em reiniciar_atributos.py. Função responsável por reiniciar o jogo ao término dele, spawnando novamente os players nos seus respectivos lugares, zerando pontuações e realocando os itens coletáveis aleatoriamente.
 
 ## Bibliotecas/Módulos usada(o)s:
 - **Pygame**:
@@ -76,9 +78,14 @@ O código foi estruturado Orientado à objetos e utilizou o recurso de loop para
 
 ## Desafios/Experiência:
 
-- **Xalala**:
-> Xalala
-- **Xalala**:
-> Xalala
+- **Pygame**:
+> A utilização obrigatória do Pygame foi um desafio, visto que os membros do grupo tinham pouca ou nenhuma familiaridade com ele. Aprendemos a utilizar suas funções de forma a conceber o sistema interativo que se deu no projeto, e combinados com os conhecimentos básicos de Python que aprendemos, conseguimos atingir os objetivos determinados.
+- **Programação Orientada a Objetos**:
+> A utilização de POO no projeto foi de extrema importância, proporcionando uma maior legibilidade e compactação do código. No grupo, tínhamos pessoas com experiência em POO e outra com nenhuma. A adaptação a esse estilo de programação resultou numa maior facilidade de trabalhar nesse projeto, visto que diversas vezes era necessário trabalhar com diversos atributos e funções que deveriam estar atrelados a uma mesma coisa, como por exemplo quando queremos trabalhar com o carro controlado pelo jogador e precisamos das coordenadas e dos comandos de movimento.
+- **Github**:
+> O uso do Github é fundamental na realização de projetos em grupo. Através dele, pudemos trabalhar em conjunto ao mesmo tempo que individualmente, com suas ferramentas a integridade funcional do projeto se manteve durante o período de realização. O aprendizado obtido será de extrema importância no âmbito que atuaremos.
+-**Trabalho em equipe**:
+> Tivemos uma dificuldade inicial em dividir as tarefas e em definir metas para os checkpoints, entretanto, com o tempo nos acertamos na organização e melhoramos o trabalho em equipe de forma a otimizar nosso tempo e produtividade. A divisão em 3 grupos (responsáveis por mapa, carro e itens) de duas pessoas contribuiu para que cada membro tivesse uma interação com um parceiro e uma divisão de trabalho equilibrada, além de incentivar uma competitividade amistosa entre grupos que implicou em uma maior agilidade no desenvolvimento. A experiência de programar em grupo foi positiva para todos os membros e consequentemente para a equipe.
+
 #
 ###### *Projeto referente a matéria de Introdução a programação/CIN-UFPE no periodo de 2021.1. Começamos em 07/12/2021*
