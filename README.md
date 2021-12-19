@@ -66,13 +66,13 @@ O código foi estruturado Orientado à objetos e utilizou o recurso de loop para
 
 ## Conceitos:
 - **Laços**:
-> Xalala
+> Um Laço é uma estrutura de repetição que permite a execução de um determinado comando diversas vezes seguidas, enquanto uma determinada condição é atendida. No projeto, utiliza-se laços para a atualização do jogo a cada frame, criando a possibilidade de ação do jogador, de spawn de itens e da contagem da pontuação.
 - **Estruturas condicionais**:
-> Xalala
+> Uma estrutura condicional corresponde à uma função utilizada para determinar a veracidade de uma ou mais proposições, e a partir da resposta decidir qual bloco de códigos será execultado à seguir. No projeto, as principais utilizações de estruturas condicionais são determinar qual ação foi tomada pelo jogador, a partir de um input do teclado, determinar se um player coletou algum powerup ou algum troféu e determinar se um player está colidindo com a parede do mapa.
 - **Funções**:
-> Xalala
+> Uma função é um bloco de códigos que executa algum comando predefinido quando chamada. No processo de sua definição os comandos são agrupados e à eles é dado um nome específico, pelo qual vai poder ser chamado. Funções são estruturas essenciais em um programa, pois evitam a repetição de um conjunto de comandos e auxiliam na modularização do código.
 - **Classes e Objetos**:
-> Xalala
+> Quando um código é estruturado por meio da orientação à objetos, qualquer estrutura que deseja-se manipular e modificar durante o funcionamento do programa é um objeto. Já uma classe é uma estrutura responsável pela criação de cada objeto a ser utilizado no código. Toda vez que uma classe é instanciada, um novo objeto é criado de acordo com a definição de inicialização de sua respectiva classe. Em um programa, classes e objetos são essenciais para a organização do código, pois permitem a sua modularização.
 
 ## Desafios/Experiência:
 
