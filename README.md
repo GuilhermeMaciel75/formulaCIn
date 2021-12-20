@@ -4,6 +4,27 @@ FormulaCIn é um jogo PvP baseado em uma experiência 2D de coleta de itens na p
 - Banana: Diminui a velocidade do player por 5 segundos
 - Raio: Aumenta a velocidade do player por 5 segundos
 
+#
+## Como Rodar o Jogo:
+> 1º - Basta Ter o Python e o Pygame instalados em sua Máquina.
+>
+> 
+> 2º - Clonar este repositório ou baixar o aquivo zip.
+>
+>3º - Rodar o arquivo main.py.
+>
+>
+> ATENÇÃO : Em algumas máquinas os arquivos de músical causam erro, se esse for o seu caso, comente as linhas 24, 25 e 26 da main.
+
+
+#
+## Como jogar o Jogo
+Teclas para Movimentação dos carrinhos
+Jogador      |     Teclas    |
+| ------------------- | ------------------- |
+|  **Player 1**|  W - A - S - D |
+|  **Player 2** | &#8592; , &#8593; , &#8594; , &#8595;  |
+
 
 ## Equipe:
 
